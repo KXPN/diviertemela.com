@@ -1,4 +1,5 @@
 (function() {
+        mostrarUltimaLetra();
         const botonObtenerNode = (
                 document.querySelector('.jsBotonObtenerSiguienteLetra')
         );
@@ -7,9 +8,33 @@
         botonReiniciarNode.addEventListener('click', reiniciar);
 })();
 
+function mostrarUltimaLetra() {
+        const letrasExcluidas = (
+                document.location.hash.substring(1).toUpperCase().split('')
+        );
+        const ultimaLetra = letrasExcluidas[letrasExcluidas.length - 1];
+        if (!ultimaLetra) {
+                return;
+        }
+        const letrasExcluidasCantidad = letrasExcluidas.length;
+        const letraNumero = (letrasExcluidasCantidad + 1);
+        let mensaje = ('Vamos ' + letraNumero + ' letras de 26 posibles.');
+        const letraNode = document.querySelector('.jsLetraSinRepeticion');
+        letraNode.textContent = ultimaLetra;
+        const informacionMensajeNode = (
+                document.querySelector('.jsInformacionMensaje')
+        );
+        informacionMensajeNode.textContent = mensaje;
+        const reinicioMensajeNode = (
+                document.querySelector('.jsReinicioMensaje')
+        );
+        reinicioMensajeNode.hidden = false;
+}
+
 function obtenerSiguienteLetra() {
-        const argumentos = document.location.hash.substring(1);
-        const letrasExcluidas = argumentos.toUpperCase().split('');
+        const letrasExcluidas = (
+                document.location.hash.substring(1).toUpperCase().split('')
+        );
         const letrasExcluidasPorLetra = {};
         for (const letraExcluida of letrasExcluidas) {
                 if (!letraExcluida.match(/[a-z]/i)) {
