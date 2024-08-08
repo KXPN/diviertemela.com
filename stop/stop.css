@@ -1,3 +1,8 @@
+.stop {
+        background-color: white;
+        color: black;
+}
+
 .stop-letra {
         font-family: 'courier new';
         font-size: 128px;
