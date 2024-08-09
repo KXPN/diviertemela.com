@@ -1,107 +1,114 @@
-(function() {
-        mostrarUltimaLetra();
-        const botonObtenerNode = (
-                document.querySelector('.jsBotonObtenerSiguienteLetra')
-        );
-        botonObtenerNode.addEventListener('click', obtenerSiguienteLetra);
-        const botonReiniciarNode = document.querySelector('.jsBotonReiniciar');
-        botonReiniciarNode.addEventListener('click', reiniciar);
-})();
+const Stop = {
 
-function mostrarUltimaLetra() {
-        const letrasExcluidas = (
-                document.location.hash.substring(1).toUpperCase().split('')
-        );
-        const ultimaLetra = letrasExcluidas[letrasExcluidas.length - 1];
-        if (!ultimaLetra) {
-                return;
-        }
-        const letrasExcluidasCantidad = letrasExcluidas.length;
-        const letraNumero = (letrasExcluidasCantidad + 1);
-        let mensaje = ('Vamos ' + letraNumero + ' letras de 26 posibles.');
-        const letraNode = document.querySelector('.jsLetraSinRepeticion');
-        letraNode.textContent = ultimaLetra;
-        const informacionMensajeNode = (
-                document.querySelector('.jsInformacionMensaje')
-        );
-        informacionMensajeNode.textContent = mensaje;
-        const reinicioMensajeNode = (
-                document.querySelector('.jsReinicioMensaje')
-        );
-        reinicioMensajeNode.hidden = false;
-}
-
-function obtenerSiguienteLetra() {
-        const letrasExcluidas = (
-                document.location.hash.substring(1).toUpperCase().split('')
-        );
-        const letrasExcluidasPorLetra = {};
-        for (const letraExcluida of letrasExcluidas) {
-                if (!letraExcluida.match(/[a-z]/i)) {
-                        continue;
-                }
-                letrasExcluidasPorLetra[letraExcluida] = true;
-        }
-        const letrasExcluidasCantidad = (
-                Object.keys(letrasExcluidasPorLetra).length
-        );
-        if (letrasExcluidasCantidad > 25) {
-                return;
-        }
-        const letrasDisponiblesPorLetra = [];
-        for (let letraCodigo = 65; letraCodigo <= 90; letraCodigo++) {
-                const letra = String.fromCharCode(letraCodigo);
-                if (letrasExcluidasPorLetra[letra]) {
-                        continue;
-                }
-                letrasDisponiblesPorLetra[letra] = true;
-        }
-        const letrasDisponibles = Object.keys(letrasDisponiblesPorLetra);
-        const letraSeleccionadaIndice = (
-                parseInt(Math.random() * letrasDisponibles.length)
-        );
-        const letraSeleccionada = letrasDisponibles[letraSeleccionadaIndice];
-        letrasExcluidasPorLetra[letraSeleccionada] = true;
-        const estaEsLaUltimaLetra = (letrasExcluidasCantidad === 25);
-        const letraNumero = (letrasExcluidasCantidad + 1);
-        let mensaje = ('Vamos ' + letraNumero + ' letras de 26 posibles.');
-        if (estaEsLaUltimaLetra) {
-                mensaje = ('Esa fue la última letra, ahora revisa quien ganó!');
-                const botonNode = (
+        inicializar: function() {
+                this.botonObtenerSiguienteLetraNode = (
                         document.querySelector('.jsBotonObtenerSiguienteLetra')
                 );
-                botonNode.disabled = true;
-        }
-        const letrasExcluidasTexto = (
-                Object.keys(letrasExcluidasPorLetra).join('')
-        );
-        history.pushState({}, '', ('#' + letrasExcluidasTexto));
-        const letraNode = document.querySelector('.jsLetraSinRepeticion');
-        letraNode.textContent = letraSeleccionada;
-        const informacionMensajeNode = (
-                document.querySelector('.jsInformacionMensaje')
-        );
-        informacionMensajeNode.textContent = mensaje;
-        const reinicioMensajeNode = (
-                document.querySelector('.jsReinicioMensaje')
-        );
-        reinicioMensajeNode.hidden = false;
-}
+                this.letraNode = (
+                        document.querySelector('.jsLetraSinRepeticion')
+                );
+                this.informacionMensajeNode = (
+                        document.querySelector('.jsInformacionMensaje')
+                );
+                this.reinicioMensajeNode = (
+                        document.querySelector('.jsReinicioMensaje')
+                );
+                this.actualizarInterfaz();
+                (
+                        document
+                        .querySelector('.jsBotonObtenerSiguienteLetra')
+                        .addEventListener(
+                                'click',
+                                this.obtenerSiguienteLetra.bind(this),
+                        )
+                );
+                (
+                        document
+                        .querySelector('.jsBotonReiniciar')
+                        .addEventListener('click', this.reiniciar.bind(this))
+                );
+        },
 
-function reiniciar() {
-        history.pushState({}, '', '#');
-        const reinicioMensajeNode = (
-                document.querySelector('.jsReinicioMensaje')
-        );
-        reinicioMensajeNode.hidden = true;
-        const letraNode = document.querySelector('.jsLetraSinRepeticion');
-        letraNode.textContent = '';
-        const informacionMensajeNode = (
-                document.querySelector('.jsInformacionMensaje')
-        );
-        informacionMensajeNode.textContent = '';
-        const botonNode = (
-                document.querySelector('.jsBotonObtenerSiguienteLetra')
-        );
-        botonNode.disabled = false;
-}
+        obtenerArgumentos: function() {
+                return (
+                        document
+                        .location
+                        .hash
+                        .substring(1)
+                        .toUpperCase()
+                        .split('')
+                );
+        },
+
+        actualizarInterfaz: function() {
+                const letrasExcluidas = this.obtenerArgumentos();
+                const ultimaLetra = letrasExcluidas[letrasExcluidas.length - 1];
+                if (!ultimaLetra) {
+                        return;
+                }
+                const letrasExcluidasCantidad = letrasExcluidas.length;
+                const estaEsLaUltimaLetra = (letrasExcluidasCantidad >= 25);
+                const letraNumero = (letrasExcluidasCantidad + 1);
+                let mensaje = (
+                        'Vamos ' +
+                        letraNumero +
+                        ' letras de 26 posibles.'
+                );
+                if (estaEsLaUltimaLetra) {
+                        mensaje = (
+                                'Esa fue la última letra, ahora revisa quien ' +
+                                'ganó!'
+                        );
+                        this.botonObtenerSiguienteLetraNode.disabled = true;
+                }
+                this.letraNode.textContent = ultimaLetra;
+                this.informacionMensajeNode.textContent = mensaje;
+                this.reinicioMensajeNode.hidden = false;
+        },
+
+        obtenerSiguienteLetra: function() {
+                const letrasExcluidas = this.obtenerArgumentos();
+                const letrasExcluidasPorLetra = {};
+                for (const letraExcluida of letrasExcluidas) {
+                        if (!letraExcluida.match(/[a-z]/i)) {
+                                continue;
+                        }
+                        letrasExcluidasPorLetra[letraExcluida] = true;
+                }
+                const letrasExcluidasCantidad = (
+                        Object.keys(letrasExcluidasPorLetra).length
+                );
+                if (letrasExcluidasCantidad > 25) {
+                        return;
+                }
+                const letrasDisponiblesPorLetra = [];
+                for (let letraCodigo = 65; letraCodigo <= 90; letraCodigo++) {
+                        const letra = String.fromCharCode(letraCodigo);
+                        if (letrasExcluidasPorLetra[letra]) {
+                                continue;
+                        }
+                        letrasDisponiblesPorLetra[letra] = true;
+                }
+                const letrasDisponibles = Object.keys(letrasDisponiblesPorLetra);
+                const letraSeleccionadaIndice = (
+                        parseInt(Math.random() * letrasDisponibles.length)
+                );
+                const letraSeleccionada = letrasDisponibles[letraSeleccionadaIndice];
+                letrasExcluidasPorLetra[letraSeleccionada] = true;
+                const letrasExcluidasTexto = (
+                        Object.keys(letrasExcluidasPorLetra).join('')
+                );
+                history.pushState({}, '', ('#' + letrasExcluidasTexto));
+                actualizarInterfaz();
+        },
+
+        reiniciar: function() {
+                history.pushState({}, '', '#');
+                this.reinicioMensajeNode.hidden = true;
+                this.letraNode.textContent = '';
+                this.informacionMensajeNode.textContent = '';
+                this.botonObtenerSiguienteLetraNode.disabled = false;
+        },
+
+};
+Stop.inicializar();
