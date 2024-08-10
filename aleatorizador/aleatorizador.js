@@ -1,5 +1,8 @@
 const Aleatorizador = {
 
+        listaTextoBase: 'Escribe aquí',
+        usosCantidad: 0,
+
         inicializar: function() {
                 this.itemsNode = document.querySelector('.jsItems');
                 (
@@ -30,7 +33,7 @@ const Aleatorizador = {
         },
 
         limpiarMensaje: function() {
-                if (this.itemsNode.textContent.trim() !== 'Escribe aquí') {
+                if (this.itemsNode.textContent.trim() !== this.listaTextoBase) {
                         return;
                 }
                 this.itemsNode.textContent = '';
@@ -40,7 +43,7 @@ const Aleatorizador = {
                 if (this.itemsNode.textContent.trim() !== '') {
                         return;
                 }
-                this.itemsNode.textContent = 'Escribe aquí';
+                this.itemsNode.textContent = this.listaTextoBase;
         },
 
         obtenerArgumentos: function() {
@@ -53,12 +56,26 @@ const Aleatorizador = {
                 );
         },
 
+        agregarItem: function(item) {
+                const itemNode = document.createElement('div');
+                itemNode.textContent = item;
+                this.itemsNode.appendChild(itemNode);
+        },
+
         actualizarInterfaz: function() {
                 const items = this.obtenerArgumentos();
                 if (!items[0]) {
                         return;
                 }
-                this.listaAleatorizadaNode.textContent = '';
+                if (this.itemsNode.textContent.trim() === this.listaTextoBase) {
+                        this.itemsNode.textContent = '';
+                        items.forEach(this.agregarItem.bind(this));
+                }
+                this.usosCantidad++;
+                const aleatorizadaNode = document.createElement('div');
+                const usoNode = document.createElement('h2');
+                usoNode.textContent = ('Aleatorizada #' + this.usosCantidad);
+                aleatorizadaNode.appendChild(usoNode);
                 while (items.length) {
                         const itemNode = document.createElement('div');
                         const itemIndice = (
@@ -67,8 +84,9 @@ const Aleatorizador = {
                         );
                         const item = items.splice(itemIndice, 1)[0];
                         itemNode.textContent = item;
-                        this.listaAleatorizadaNode.appendChild(itemNode);
+                        aleatorizadaNode.appendChild(itemNode);
                 }
+                this.listaAleatorizadaNode.prepend(aleatorizadaNode);
         },
 
         aleatorizar: function() {
