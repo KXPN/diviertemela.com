@@ -47,17 +47,17 @@ const Stop = {
                         return;
                 }
                 const letrasExcluidasCantidad = letrasExcluidas.length;
-                const estaEsLaUltimaLetra = (letrasExcluidasCantidad >= 25);
-                const letraNumero = (letrasExcluidasCantidad + 1);
+                const estaEsLaUltimaLetra = (letrasExcluidasCantidad >= 26);
                 let mensaje = (
                         'Vamos ' +
-                        letraNumero +
-                        ' letras de 26 posibles.'
+                        letrasExcluidasCantidad +
+                        ' letras de 26 posibles: ' +
+                        letrasExcluidas.join(' ')
                 );
                 if (estaEsLaUltimaLetra) {
-                        mensaje = (
-                                'Esa fue la última letra, ahora revisa quien ' +
-                                'ganó!'
+                        mensaje += (
+                                '. Esa fue la última letra, ahora revisa ' +
+                                'quien ganó!'
                         );
                         this.botonObtenerSiguienteLetraNode.disabled = true;
                 }
@@ -103,7 +103,7 @@ const Stop = {
                         Object.keys(letrasExcluidasPorLetra).join('')
                 );
                 history.pushState({}, '', ('?' + letrasExcluidasTexto));
-                actualizarInterfaz();
+                this.actualizarInterfaz();
         },
 
         reiniciar: function() {
