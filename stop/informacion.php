@@ -2,5 +2,5 @@
         'titulo' => 'Stop',
         'resumen' => 'escribe las palabras tan rápido cómo puedas',
         'css' => 'stop.css',
-        'javascript' => 'stop.js',
+        'jsArchivos' => ['../ayudantes/aleatorio.js', 'stop.js'],
 ] ?>

@@ -1,5 +1,5 @@
-            <?php if (!empty($pagina['javascript'])) { ?>
-                    <script src="<?= $pagina['javascript'] ?>"/></script>
+            <?php foreach (($pagina['jsArchivos'] ?? []) as $jsArchivo) { ?>
+                    <script src="<?= $jsArchivo ?>"/></script>
             <?php } ?>
         </body>
 </html>

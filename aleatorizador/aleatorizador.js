@@ -62,7 +62,8 @@ const Aleatorizador = {
                 while (items.length) {
                         const itemNode = document.createElement('div');
                         const itemIndice = (
-                                parseInt(Math.random() * items.length)
+                                Aleatorio
+                                .obtenerNumeroDe0ANoIncluido(items.length)
                         );
                         const item = items.splice(itemIndice, 1)[0];
                         itemNode.textContent = item;

@@ -93,7 +93,8 @@ const Stop = {
                         Object.keys(letrasDisponiblesPorLetra)
                 );
                 const letraSeleccionadaIndice = (
-                        parseInt(Math.random() * letrasDisponibles.length)
+                        Aleatorio
+                        .obtenerNumeroDe0ANoIncluido(letrasDisponibles.length)
                 );
                 const letraSeleccionada = (
                         letrasDisponibles[letraSeleccionadaIndice]
