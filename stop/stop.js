@@ -89,11 +89,15 @@ const Stop = {
                         }
                         letrasDisponiblesPorLetra[letra] = true;
                 }
-                const letrasDisponibles = Object.keys(letrasDisponiblesPorLetra);
+                const letrasDisponibles = (
+                        Object.keys(letrasDisponiblesPorLetra)
+                );
                 const letraSeleccionadaIndice = (
                         parseInt(Math.random() * letrasDisponibles.length)
                 );
-                const letraSeleccionada = letrasDisponibles[letraSeleccionadaIndice];
+                const letraSeleccionada = (
+                        letrasDisponibles[letraSeleccionadaIndice]
+                        );
                 letrasExcluidasPorLetra[letraSeleccionada] = true;
                 const letrasExcluidasTexto = (
                         Object.keys(letrasExcluidasPorLetra).join('')
