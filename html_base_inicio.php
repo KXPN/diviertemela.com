@@ -31,5 +31,7 @@
                                 <?= $pagina['titulo'] ?>
                                 -
                         <?php } ?>
-                        Diviertemela
+                        <a href="/">
+                                Diviertemela
+                        </a>
                 </h1>
