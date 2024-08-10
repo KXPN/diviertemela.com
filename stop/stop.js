@@ -33,7 +33,7 @@ const Stop = {
                 return (
                         document
                         .location
-                        .hash
+                        .search
                         .substring(1)
                         .toUpperCase()
                         .split('')
@@ -98,12 +98,12 @@ const Stop = {
                 const letrasExcluidasTexto = (
                         Object.keys(letrasExcluidasPorLetra).join('')
                 );
-                history.pushState({}, '', ('#' + letrasExcluidasTexto));
+                history.pushState({}, '', ('?' + letrasExcluidasTexto));
                 actualizarInterfaz();
         },
 
         reiniciar: function() {
-                history.pushState({}, '', '#');
+                history.pushState({}, '', '?');
                 this.reinicioMensajeNode.hidden = true;
                 this.letraNode.textContent = '';
                 this.informacionMensajeNode.textContent = '';

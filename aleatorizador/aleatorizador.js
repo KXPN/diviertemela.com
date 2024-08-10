@@ -47,7 +47,7 @@ const Aleatorizador = {
                 return (
                         document
                         .location
-                        .hash
+                        .search
                         .substring(1)
                         .split(',')
                 );
@@ -78,7 +78,7 @@ const Aleatorizador = {
                         items.push(itemNode.textContent.trim());
                 }
                 const itemsSeparadosPorComa = items.join(',');
-                history.pushState({}, '', ('#' + itemsSeparadosPorComa));
+                history.pushState({}, '', ('?' + itemsSeparadosPorComa));
                 this.actualizarInterfaz();
         },
 
