@@ -59,17 +59,15 @@ const Aleatorizador = {
                         return;
                 }
                 this.listaAleatorizadaNode.textContent = '';
-                const listaNode = document.createElement('ol');
                 while (items.length) {
-                        const itemNode = document.createElement('li');
+                        const itemNode = document.createElement('div');
                         const itemIndice = (
                                 parseInt(Math.random() * items.length)
                         );
                         const item = items.splice(itemIndice, 1)[0];
                         itemNode.textContent = item;
-                        listaNode.appendChild(itemNode);
+                        this.listaAleatorizadaNode.appendChild(itemNode);
                 }
-                this.listaAleatorizadaNode.appendChild(listaNode);
         },
 
         aleatorizar: function() {
