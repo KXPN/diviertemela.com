@@ -1,4 +1,5 @@
 const Aleatorio = {
+
         obtenerNumeroDe0ANoIncluido: function(maximoNoIncluido) {
                 const bytesCantidad = Math.ceil(maximoNoIncluido / 256);
                 const numeros = new Uint8Array(bytesCantidad);
@@ -10,4 +11,12 @@ const Aleatorio = {
                 } while (suma >= maximoNoIncluido);
                 return suma;
         },
+
+        obtenerNumeroEntreUnoYOtro: function(minimo, maximo) {
+                return (
+                        minimo +
+                        this.obtenerNumeroDe0ANoIncluido(maximo - minimo)
+                );
+        },
+
 };
