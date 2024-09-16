@@ -7,23 +7,27 @@
 </p>
 <label>
         <code>t<sub>min</sub></code> =
-        <input type="text" value="5"/>
+        <input class="jsTMin" type="text" value="5"/>
 </label>
 <label>
         <code>t<sub>max</sub></code> =
-        <input type="text" value="60"/>
+        <input class="jsTMax" type="text" value="60"/>
 </label>
-<button class="jsBotonObtenerSiguienteLetra">
+<button class="jsBotonActivarBomba">
         Activar bomba
 </button>
 <div class="bomba-silaba jsSilaba"></div>
-<div class="jsInformacionMensaje"></div>
+<button class="jsBotonMostrarSiguienteSilaba" hidden="hidden">
+        Mostrar siguiente sílaba
+</button>
 <div class="jsReinicioMensaje" hidden="hidden">
         También puedes
         <button class="jsBotonReiniciar">
                 reiniciar el juego
         </button>
 </div>
+<div class="jsSilabasAnteriores"></div>
+<audio class="jsSonido" loop="loop" src="tictoc.mp3"></audio>
 <h2>Instrucciones</h2>
 <ol>
         <li>
@@ -37,7 +41,7 @@
         </li>
         <li>
                 Se mostrará una sílaba aleatoria con un guión antes, después, o
-                ambos, indicando si la sílaba es sufijo, prefijo, o intermedia,
+                ambos, indicando si la sílaba es inicial, final, o intermedia,
                 respectivamente
         </li>
         <li>
@@ -49,8 +53,8 @@
                 <ol type="a">
                         <li>
                                 No ha explotado, el siguiente jugador debe hacer
-                                clic en "Siguiente sílaba" para continuar el
-                                juego
+                                clic en "Mostrar siguiente sílaba" para
+                                continuar el juego
                         </li>
                         <li>
                                 Explota, el jugador que está en turno sale del

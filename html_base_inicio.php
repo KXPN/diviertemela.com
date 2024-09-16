@@ -20,7 +20,7 @@
                                 'mela'
                         ) ?>"
                 />
-                <link rel="stylesheet" href="/diviertemela.css"/>
+                <link rel="stylesheet" href="../diviertemela.css"/>
                 <?php if (!empty($pagina['css'])) { ?>
                         <link rel="stylesheet" href="<?= $pagina['css'] ?>"/>
                 <?php } ?>
