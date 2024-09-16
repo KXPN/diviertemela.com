@@ -16,7 +16,7 @@
 <button class="jsBotonObtenerSiguienteLetra">
         Activar bomba
 </button>
-<div class="stop-letra jsLetraSinRepeticion"></div>
+<div class="bomba-silaba jsSilaba"></div>
 <div class="jsInformacionMensaje"></div>
 <div class="jsReinicioMensaje" hidden="hidden">
         También puedes
